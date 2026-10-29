@@ -1,0 +1,26 @@
+table,column,dtype,non_null,missing,distinct,example,annotation
+accounts,account_id,str,1014,0,1014,AC00001,PK. Test/internal accounts are mixed in (see §4).
+accounts,account_name,str,1014,0,1007,Halcyon Freight Partners,Free text from CRM. Used to spot test accounts.
+accounts,created_date,datetime64[us],1014,0,464,2025-08-22 00:00:00,CRM record date; matches first subscription start.
+accounts,customer_segment,str,1014,0,5,freight_brokerage,5 values. intermodal is a thin segment.
+accounts,contract_tier,str,1014,0,12,growth,"CURRENT tier, not tier at signup. Inconsistent casing/spacing (§4)."
+accounts,onboarding_channel,str,1014,0,4,self_serve,4 values.
+accounts,hq_region,str,1014,0,5,northeast,5 values.
+accounts,fleet_size,float64,919,95,471,266.0,"Vehicles at creation. Has missing values — genuinely missing, not 0."
+accounts,annual_contract_value,int64,1014,0,1001,122992,"USD per dictionary, but some values look like cents (§4)."
+accounts,onboarding_satisfaction_score,float64,1014,0,265,8.79,1–10 survey. Observed range is narrow and high (§3).
+accounts,days_to_first_login,int64,1014,0,41,20,Derived field; does not agree with the event log (§4).
+subscriptions,subscription_id,str,1055,0,1055,SB000001,PK.
+subscriptions,account_id,str,1055,0,1014,AC00001,FK → accounts. Some accounts have 2 subscriptions.
+subscriptions,plan,str,1055,0,4,pilot,Includes 'pilot' — not a paid plan.
+subscriptions,start_date,datetime64[us],1055,0,468,2025-08-22 00:00:00,First day of subscription.
+subscriptions,end_date,datetime64[us],360,695,262,2025-09-19 00:00:00,Empty = not ended as of export.
+subscriptions,status,str,1055,0,3,cancelled,active / paused / cancelled as of export.
+subscriptions,end_reason,str,360,695,6,voluntary_cancellation,"Not every reason is a customer leaving (consolidation, pause)."
+product_events,event_id,str,56999,0,56999,EV0002941,PK assigned on ingest — unique even for duplicated events.
+product_events,account_id,str,56999,0,993,AC00063,FK → accounts.
+product_events,user_id,str,56999,0,4261,AC00063-U1,User within account (format <account>-U<n>).
+product_events,event_type,str,56999,0,9,session_started,9 types. route_optimization_run = core value action.
+product_events,event_timestamp,str,56999,0,56685,2025-04-30T02:40:37Z,UTC string. Some precede subscription start (§4).
+product_events,platform,str,56999,0,3,web,web / ios / android.
+product_events,app_version,str,56999,0,5,4.1.2,5 releases; check per release before trusting counts.

@@ -1,0 +1,12 @@
+table,issue,measured,proposed handling
+accounts,Test / internal accounts,14 accounts,Exclude from all analysis
+accounts,contract_tier casing/spacing,12 spellings of 3 values,strip() + lower()
+accounts,ACV entered in cents,10 values >20× median,Divide by 100; confirm with Selin
+accounts,fleet_size missing,95 accounts,Keep as missing; don't impute 0
+accounts,days_to_first_login disagrees with events,872 of 897 disagree,Recompute from event log
+accounts,Satisfaction score compressed (7–10),no low scores,Ask who receives the survey
+subscriptions,"Pilots, re-subscriptions, pauses",161 pilots · 41 re-subs · 24 paused,Decide churn definition in Week 2
+subscriptions,Recent signups censored,165 accounts,Exclude from 90-day labels
+product_events,Accounts with no events,21 accounts,"Keep; treat as zero activity, not missing"
+product_events,Duplicate events,281 rows,Deduplicate on all fields except event_id; ask Priya
+product_events,Events before subscription start,36 events,Ask Priya about migration; exclude from first-30-day metrics
